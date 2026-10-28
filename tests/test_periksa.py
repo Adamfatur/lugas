@@ -63,7 +63,12 @@ class TestTidakSalahTandai(unittest.TestCase):
             "Toko itu menjual pakaian dan sepatu. "
             "Mereka mulai bekerja pukul delapan. "
             "Di mana kamu menyimpan kuncinya? "
-            "Berikut syarat pendaftaran."
+            "Berikut syarat pendaftaran. "
+            "Berikut contoh konfigurasinya. "
+            "Berikut hasil pemeriksaan laboratorium. "
+            "Mari kita lihat tabel di bawah. "
+            "Jangan sampai ketinggalan kereta terakhir. "
+            "Jika perlu, saya bisa datang lebih pagi."
         )
         self.assertEqual(set(), nomor_pola(teks) - {27})
 
