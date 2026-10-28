@@ -10,7 +10,7 @@ description: |
   "periksa pola AI", atau "kedengarannya kayak ChatGPT".
 license: MIT
 metadata:
-  version: "0.2.0"
+  version: "0.2.1"
 ---
 
 # Lugas: hilangkan pola tulisan AI dari Bahasa Indonesia

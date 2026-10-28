@@ -19,3 +19,5 @@ Folder ini mencatat uji kualitas Lugas. Setiap versi yang diuji punya foldernya 
 ## Batasan
 
 Penulis teks, penulis ulang, dan juri semuanya model Claude. Juri memakai model yang berbeda (Sonnet), tapi penilaian manusia tetap lebih kuat. Sepuluh teks juga terlalu sedikit untuk kesimpulan statistik. Anggap hasil ini sebagai petunjuk arah, bukan bukti.
+
+Tiga batasan lain perlu diketahui. Jawaban mentah juri dan prompt yang dipakainya tidak disimpan; yang ada hanya tabel ringkasan di `penilaian.md`, jadi hasilnya tidak bisa diperiksa ulang dari repo ini. Beberapa teks asli juga dibuka atau ditutup kalimat asisten, misalnya "Berikut beberapa pilihan caption". Membuang kalimat itu saja sudah membuat hasil lebih siap pakai, jadi angka pada kolom itu sebagian mengukur pembuangan bungkus chatbot, bukan hanya penghilangan pola AI. Juri juga memberi keyakinan rendah pada 4 dari 10 pasangan di putaran 0.2.0.

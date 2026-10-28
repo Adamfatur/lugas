@@ -1,5 +1,10 @@
 # Riwayat versi
 
+## 0.2.1 (2026-10-28)
+
+- Pemeriksa tidak lagi menandai frasa wajar seperti "Berikut contoh", "Berikut hasil", "Mari kita lihat", "Jangan sampai ketinggalan kereta", dan "Jika perlu, saya (juga) bisa datang". "Berikut" hanya ditandai bila diikuti "beberapa", "penjelasan", atau "ringkasan". Frasa chatbot yang ditambahkan di 0.2.0 tetap dikenali.
+- `evaluasi/README.md` mencatat bahwa jawaban mentah juri tidak disimpan dan bahwa kriteria "siap pakai" sebagian mengukur pembuangan bungkus chatbot.
+
 ## 0.2.0 (2026-10-28)
 
 - Dukungan Codex (`skills/lugas/agents/openai.yaml`) dan Cursor (`.cursor-plugin/plugin.json`).
