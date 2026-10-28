@@ -28,25 +28,101 @@ Lugas memeriksa [31 pola](#31-pola) secara keseluruhan.
 
 ## Pemasangan
 
-### Claude Code
+Lugas adalah skill agen standar: satu folder berisi `SKILL.md` dan pemeriksanya. Skill ini bisa dipakai di agen apa pun yang mendukung skill, dan juga di chat biasa seperti ChatGPT atau Gemini.
 
-```text
-/plugin marketplace add Adamfatur/lugas
-/plugin install lugas@lugas
+### Cara tercepat: semua agen sekaligus
+
+Butuh [Node.js](https://nodejs.org). Perintah ini memakai [Skills CLI](https://github.com/vercel-labs/skills) untuk memasang Lugas ke setiap agen yang dikenalnya:
+
+```bash
+npx skills add Adamfatur/lugas --global --agent '*'
 ```
 
-Atau dari terminal:
+Hapus `--global` untuk memasang Lugas hanya di project yang sedang dibuka.
+
+### Pilih agen tertentu
+
+Ganti `<agen>` dengan nama di kolom kedua. Beberapa agen bisa ditulis sekaligus, dipisah spasi.
+
+```bash
+npx skills add Adamfatur/lugas --global --agent <agen>
+```
+
+| Agen | `--agent` | Folder skill di project |
+|------|-----------|-------------------------|
+| Claude Code | `claude-code` | `.claude/skills/lugas` |
+| Codex | `codex` | `.agents/skills/lugas` |
+| Cursor | `cursor` | `.agents/skills/lugas` |
+| Gemini CLI | `gemini-cli` | `.agents/skills/lugas` |
+| GitHub Copilot | `github-copilot` | `.agents/skills/lugas` |
+| OpenCode | `opencode` | `.agents/skills/lugas` |
+| Cline | `cline` | `.agents/skills/lugas` |
+| Amp | `amp` | `.agents/skills/lugas` |
+| Antigravity | `antigravity` | `.agents/skills/lugas` |
+| Zed | `zed` | `.agents/skills/lugas` |
+| Windsurf | `windsurf` | `.windsurf/skills/lugas` |
+| Roo Code | `roo` | `.roo/skills/lugas` |
+| Kiro | `kiro-cli` | `.kiro/skills/lugas` |
+| Trae | `trae` | `.trae/skills/lugas` |
+| Qwen Code | `qwen-code` | `.qwen/skills/lugas` |
+| Goose | `goose` | `.goose/skills/lugas` |
+| Junie | `junie` | `.junie/skills/lugas` |
+
+Skills CLI mengenal lebih dari 70 agen. Daftar lengkapnya ada di [repositori Skills CLI](https://github.com/vercel-labs/skills).
+
+### Claude Code sebagai plugin
+
+Selain lewat Skills CLI, Lugas bisa dipasang sebagai plugin Claude Code. Cara ini tidak butuh Node.js.
 
 ```bash
 claude plugin marketplace add Adamfatur/lugas
 claude plugin install lugas@lugas
 ```
 
-Setelah dipasang, skill ini bisa dipanggil dengan `/lugas:lugas`.
+Dari dalam Claude Code, perintah yang sama bisa diketik sebagai `/plugin marketplace add Adamfatur/lugas` lalu `/plugin install lugas@lugas`.
 
-### Dari salinan lokal dengan GitHub CLI
+### Tanpa Node.js: salin manual
 
-Cara ini berguna kalau Anda ingin mengubah katalognya sendiri.
+Salin folder `skills/lugas` ke folder skill agen Anda (lihat kolom ketiga tabel di atas). Contoh untuk Codex di project yang sedang dibuka:
+
+```bash
+gh repo clone Adamfatur/lugas /tmp/lugas
+mkdir -p .agents/skills
+cp -r /tmp/lugas/skills/lugas .agents/skills/
+```
+
+Tanpa GitHub CLI, unduh ZIP lewat **Code → Download ZIP** lalu salin foldernya dengan cara yang sama.
+
+### Claude.ai dan Claude Desktop
+
+Unduh repositori ini sebagai ZIP (**Code → Download ZIP**) dan ekstrak. Kompres folder `skills/lugas` menjadi ZIP tersendiri, lalu unggah sebagai skill di Settings.
+
+### ChatGPT, Gemini, dan chat lain tanpa dukungan skill
+
+Salin isi `SKILL.md` sebagai prompt. Di macOS:
+
+```bash
+npx skills use Adamfatur/lugas@lugas | pbcopy
+```
+
+Tempel hasilnya sebagai pesan pertama, lalu kirim teks yang ingin disunting.
+
+Supaya tidak perlu menempel setiap kali, buat Custom GPT di ChatGPT atau Gem di Gemini. Unggah [`SKILL.md`](skills/lugas/SKILL.md) sebagai berkas pengetahuan, lalu tulis di kolom instruksinya: "Ikuti SKILL.md untuk setiap teks yang dikirim pengguna." Isi SKILL.md (sekitar 14 ribu karakter) lebih panjang dari batas kolom instruksi Custom GPT, jadi jangan ditempel langsung ke kolom itu.
+
+Di chat seperti ini, pemeriksa `periksa.py` tidak bisa dijalankan. Katalog 31 polanya tetap terpakai.
+
+### Memperbarui dan menghapus
+
+```bash
+npx skills update lugas --global
+npx skills remove lugas --global
+```
+
+Untuk plugin Claude Code, pakai `claude plugin update lugas@lugas` dan `claude plugin uninstall lugas@lugas`.
+
+### Untuk kontributor
+
+Pasang dari salinan lokal supaya perubahan Anda langsung terpakai:
 
 ```bash
 gh repo clone Adamfatur/lugas
@@ -54,37 +130,20 @@ claude plugin marketplace add ./lugas
 claude plugin install lugas@lugas
 ```
 
-Perubahan di folder itu langsung terpakai. Naikkan `version` di `.claude-plugin/plugin.json`, lalu jalankan `claude plugin update lugas@lugas`.
-
-### Codex
-
-```bash
-npx skills add Adamfatur/lugas --global --agent codex
-```
-
-Di Codex, panggil dengan `$lugas`.
-
-### Cursor
-
-```bash
-npx skills add Adamfatur/lugas --global --agent cursor
-```
-
-### Claude.ai dan Claude Desktop
-
-Unduh repositori ini sebagai ZIP (**Code → Download ZIP**) dan ekstrak. Kompres folder `skills/lugas` menjadi ZIP tersendiri, lalu unggah sebagai skill di Settings.
-
-### Agen lain
-
-```bash
-npx skills add Adamfatur/lugas --global --agent '*'
-```
-
-Perintah ini memasang Lugas untuk semua agen yang dikenal Skills CLI, termasuk Gemini CLI, GitHub Copilot, dan Windsurf. Hapus `--global` di perintah mana pun di atas untuk memasang Lugas hanya di project yang sedang dibuka. Untuk agen yang tidak dikenal Skills CLI, salin folder `skills/lugas` ke folder skill agen itu.
+Untuk agen lain, jalankan `npx skills add ./lugas --agent <agen>`.
 
 ## Pemakaian
 
-Panggil skill-nya langsung:
+Cara memanggil Lugas tergantung agennya:
+
+| Agen | Cara memanggil |
+|------|----------------|
+| Claude Code (plugin) | `/lugas:lugas` |
+| Claude Code (Skills CLI) | `/lugas` |
+| Codex | `$lugas` |
+| Agen lain dan chat | minta dengan kalimat biasa |
+
+Contoh:
 
 ```
 /lugas:lugas
@@ -92,7 +151,7 @@ Panggil skill-nya langsung:
 [tempel teks di sini]
 ```
 
-Atau minta dengan kalimat biasa:
+Di semua agen, permintaan dengan kalimat biasa juga berjalan, karena agen memilih skill dari deskripsinya:
 
 ```
 Tolong buat tulisan ini nggak kedengaran kayak AI: [teks]
