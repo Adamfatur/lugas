@@ -48,6 +48,7 @@ class TestPolaTerdeteksi(unittest.TestCase):
         self.assertIn(25, nomor_pola("Jika perlu, saya juga bisa membuatkan versi poin."))
         self.assertIn(13, nomor_pola("Mari kita bahas satu per satu."))
         self.assertIn(13, nomor_pola("Jangan sampai kelewatan, ya!"))
+        self.assertIn(25, nomor_pola("Berikut ini beberapa pilihan caption."))
 
     def test_kata_ganti_tercampur(self):
         self.assertIn(27, nomor_pola("Saya suka kopi. Tapi aku lebih suka teh."))
@@ -68,7 +69,10 @@ class TestTidakSalahTandai(unittest.TestCase):
             "Berikut hasil pemeriksaan laboratorium. "
             "Mari kita lihat tabel di bawah. "
             "Jangan sampai ketinggalan kereta terakhir. "
-            "Jika perlu, saya bisa datang lebih pagi."
+            "Jika perlu, saya bisa datang lebih pagi. "
+            "Jika perlu, saya juga bisa datang lebih pagi. "
+            "Berikut ini contoh konfigurasinya. "
+            "Berikut adalah hasil pemeriksaan laboratorium."
         )
         self.assertEqual(set(), nomor_pola(teks) - {27})
 

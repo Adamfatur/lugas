@@ -88,9 +88,8 @@ POLA = [
      r"\b(insight|leverage|impact|highlight|concern|engagement|mindset)\b",
      "Pakai padanan Indonesia, kecuali registernya memang campur."),
     (25, "sapaan chatbot",
-     r"\btentu[!,] berikut\b|\bberikut (adalah|ini) (beberapa|penjelasan|ringkasan|hasil|pilihan|contoh)\b"
-     r"|\bberikut (beberapa|penjelasan|ringkasan)\b"
-     r"|\bjika perlu, saya (juga bisa|bisa (membuatkan|menambahkan|menyusun|menjelaskan|merangkum))\b"
+     r"\btentu[!,] berikut\b|\bberikut (adalah |ini )?(beberapa|penjelasan|ringkasan)\b"
+     r"|\bjika perlu, saya (juga )?bisa (membuatkan|menambahkan|menyusun|menjelaskan|merangkum)\b"
      r"|\bjangan ragu untuk\b|\bsebagai (sebuah )?(model bahasa|ai)\b"
      r"|\bjika (ada|anda memiliki) pertanyaan (lain|lebih lanjut)\b",
      "Hapus."),
