@@ -2,7 +2,7 @@
 
 [![Uji](https://github.com/Adamfatur/lugas/actions/workflows/uji.yml/badge.svg)](https://github.com/Adamfatur/lugas/actions/workflows/uji.yml) [![Lisensi: MIT](https://img.shields.io/badge/lisensi-MIT-blue.svg)](LICENSE) [![Versi](https://img.shields.io/github/v/tag/Adamfatur/lugas?label=versi)](CHANGELOG.md)
 
-Lugas menyunting teks Bahasa Indonesia yang terdengar seperti buatan AI supaya terdengar seperti ditulis penulisnya sendiri. Isinya tidak berubah: fakta, angka, nama, dan tautan tetap sama. Lugas bekerja sebagai skill di Claude Code, Claude.ai, dan agen lain yang mendukung skill.
+Lugas menyunting teks Bahasa Indonesia yang terdengar seperti buatan AI supaya terdengar seperti ditulis penulisnya sendiri. Isinya tidak berubah: fakta, angka, nama, dan tautan tetap sama. Lugas bekerja sebagai skill di Claude Code, Codex, Cursor, Claude.ai, dan agen lain yang mendukung skill.
 
 **Sebelum:**
 > Di era digital ini, keamanan data tentunya memegang peranan yang sangat penting. Fitur terbaru kami tidak hanya melindungi data Anda, tetapi juga memberikan pengalaman yang mulus dan tak terlupakan. Dengan enkripsi end-to-end, cadangan otomatis, dan kontrol akses yang komprehensif, kami membawa keamanan ke level berikutnya. Semoga bermanfaat!
@@ -11,6 +11,8 @@ Lugas menyunting teks Bahasa Indonesia yang terdengar seperti buatan AI supaya t
 > Fitur terbaru kami melindungi data Anda dengan enkripsi end-to-end, cadangan otomatis, dan kontrol akses.
 
 Lugas terinspirasi dari [Humanizer](https://github.com/blader/humanizer), yang dibuat untuk bahasa Inggris. Pola tulisan AI dalam Bahasa Indonesia berbeda, jadi katalog Lugas disusun dari nol: pembuka "Di era digital ini", kata "tentunya" di hampir tiap paragraf, idiom terjemahan seperti "membawa ke level berikutnya", sampai "saya" dan "aku" yang tercampur dalam satu tulisan.
+
+Dalam uji buta pada 10 teks AI sehari-hari, juri memilih hasil Lugas sebagai versi yang lebih siap dipakai di 9 dari 10 pasangan. Sisanya seri, dan Lugas tidak pernah kalah. Metode, teks, dan batasan ujinya ada di [`evaluasi/`](evaluasi/).
 
 Lugas menyunting untuk pembaca manusia. Mengelabui detektor AI bukan tujuannya.
 
@@ -54,13 +56,31 @@ claude plugin install lugas@lugas
 
 Perubahan di folder itu langsung terpakai. Naikkan `version` di `.claude-plugin/plugin.json`, lalu jalankan `claude plugin update lugas@lugas`.
 
+### Codex
+
+```bash
+npx skills add Adamfatur/lugas --global --agent codex
+```
+
+Di Codex, panggil dengan `$lugas`.
+
+### Cursor
+
+```bash
+npx skills add Adamfatur/lugas --global --agent cursor
+```
+
 ### Claude.ai dan Claude Desktop
 
 Unduh repositori ini sebagai ZIP (**Code → Download ZIP**) dan ekstrak. Kompres folder `skills/lugas` menjadi ZIP tersendiri, lalu unggah sebagai skill di Settings.
 
 ### Agen lain
 
-Salin folder `skills/lugas` ke folder skill agen Anda. Folder itu sudah berisi `SKILL.md` dan pemeriksanya.
+```bash
+npx skills add Adamfatur/lugas --global --agent '*'
+```
+
+Perintah ini memasang Lugas untuk semua agen yang dikenal Skills CLI, termasuk Gemini CLI, GitHub Copilot, dan Windsurf. Hapus `--global` di perintah mana pun di atas untuk memasang Lugas hanya di project yang sedang dibuka. Untuk agen yang tidak dikenal Skills CLI, salin folder `skills/lugas` ke folder skill agen itu.
 
 ## Pemakaian
 
@@ -91,6 +111,8 @@ Kalau Anda hanya ingin tahu masalahnya, minta Lugas memeriksa saja: "periksa art
 
 Ada tiga aturan yang tidak pernah dilanggar. Lugas tidak menambah fakta, contoh, atau pendapat. Lugas tidak mengubah register: tulisan santai tetap santai. Lugas juga tidak menyentuh blok kode, kutipan langsung, dan nama produk.
 
+Lugas juga mengikuti kebiasaan tiap genre. Emoji 📍 untuk alamat di Instagram, 🧵 di thread, ✅ di daftar produk marketplace, dan kop surat resmi dianggap bagian dari bentuk tulisan, jadi tidak dihapus. Teks yang sudah bersih dikembalikan dengan sedikit perubahan atau tanpa perubahan.
+
 ## Pemeriksa
 
 `periksa.py` bisa dipakai tanpa agen. Pemeriksa ini hanya butuh Python 3.9 atau lebih baru, tanpa pustaka tambahan.
@@ -113,7 +135,7 @@ Contoh keluaran:
           2:69  [13] penutup wajib: "Semoga bermanfaat"  → Akhiri di kalimat terakhir yang berisi informasi.
 ```
 
-Pemeriksa melewati blok kode dan kode sebaris. Tiap temuan tetap perlu dinilai: label tebal di daftar definisi, misalnya, boleh tetap ada. Pola yang butuh penilaian (6, 7, 9, 12, 14, 15, dan 28) tidak diperiksa oleh skrip ini.
+Pemeriksa melewati blok kode dan kode sebaris. Tiap temuan tetap perlu dinilai: label tebal di daftar definisi atau emoji penanda genre, misalnya, boleh tetap ada. Pemeriksa hanya mengenal frasa di daftarnya, dan pola yang butuh penilaian (6, 7, 9, 12, 14, 15, dan 28) tidak diperiksa sama sekali. Nol temuan tidak berarti teksnya sudah bersih.
 
 ## 31 pola
 
@@ -128,23 +150,23 @@ Pemeriksa melewati blok kode dan kode sebaris. Tiap temuan tetap perlu dinilai: 
 | 6 | Kesimpulan kosong | "Hal ini menunjukkan betapa pentingnya…" |
 | 7 | Definisi yang tidak diminta | "Media sosial adalah sebuah platform digital yang…" |
 | | **Struktur** | |
-| 8 | Tidak hanya X, tetapi juga Y | "bukan sekadar X, melainkan Y" |
+| 8 | "Tidak hanya X, tetapi juga Y" | "bukan sekadar X, melainkan Y" |
 | 9 | Tiga serangkai paksa | "efektif, efisien, dan inovatif" |
 | 10 | Pembuka bertahap | "Jujur saja,", "Faktanya?", "Begini," |
-| 11 | Pertanyaan dijawab sendiri | "Mengapa ini penting? Karena…" |
-| 12 | Membantah lawan yang tidak ada | "Saya tidak mengatakan X, tapi…" |
+| 11 | Pertanyaan yang dijawab sendiri | "Mengapa ini penting? Karena…" |
+| 12 | Membantah lawan bicara yang tidak ada | "Saya tidak mengatakan X, tapi…" |
 | 13 | Penutup wajib | "Semoga bermanfaat!", "Kesimpulannya," |
 | 14 | Ritme seragam | Semua kalimat dan paragraf sama panjang |
 | 15 | Poin untuk hal yang seharusnya prosa | Sebab-akibat dipecah jadi poin |
 | | **Kosakata dan tata bahasa** | |
 | 16 | Kata pengisi | "tentunya", "penting untuk dicatat bahwa" |
 | 17 | Kosakata favorit AI | "holistik", "komprehensif", "menavigasi", "lanskap" |
-| 18 | Terjemahan harfiah | "ke level berikutnya", "di penghujung hari" |
-| 19 | "Di mana" sebagai penghubung | "aplikasi yang di mana pengguna…" |
+| 18 | Terjemahan harfiah dari bahasa Inggris | "ke level berikutnya", "di penghujung hari" |
+| 19 | "Yang di mana" dan "di mana" sebagai penghubung | "aplikasi yang di mana pengguna…" |
 | 20 | Kata mubazir | "adalah merupakan", "agar supaya", "demi untuk" |
 | 21 | Nominalisasi | "melakukan pengecekan" |
 | 22 | Pasif bertumpuk | "Telah dilakukannya pengembangan…" |
-| 23 | "Hal ini/tersebut" berulang | Rujukan kabur di hampir tiap kalimat |
+| 23 | "Hal ini" dan "tersebut" berulang | Rujukan kabur di hampir tiap kalimat |
 | 24 | Istilah asing yang tidak perlu | "insight", "leverage", "impact" |
 | | **Nada dan register** | |
 | 25 | Sapaan chatbot | "Tentu! Berikut adalah…", "Jangan ragu untuk bertanya" |
@@ -152,7 +174,7 @@ Pemeriksa melewati blok kode dan kode sebaris. Tiap temuan tetap perlu dinilai: 
 | 27 | Kata ganti tercampur | "saya" dan "aku" dalam satu tulisan |
 | 28 | Register tidak cocok | Bahasa surat dinas di unggahan Instagram |
 | | **Format** | |
-| 29 | Tanda pisah panjang | "Hasilnya — seperti dugaan — buruk." |
+| 29 | Tanda pisah panjang (—) | "Hasilnya — seperti dugaan — buruk." |
 | 30 | Label tebal dan judul berlebihan | Tiap poin dibuka dengan **Label:** |
 | 31 | Emoji dan tanda seru | 🚀✨ dan tanda seru di tiap kalimat |
 
@@ -162,11 +184,16 @@ Penjelasan dan cara memperbaiki tiap pola ada di [`skills/lugas/SKILL.md`](skill
 
 ```text
 .claude-plugin/        manifest plugin dan marketplace Claude Code
+.cursor-plugin/        manifest plugin Cursor
 skills/lugas/
   SKILL.md             katalog pola dan instruksi untuk agen
   scripts/periksa.py   pemeriksa otomatis
-contoh/                teks sebelum dan sesudah untuk pengujian
+  agents/openai.yaml   metadata untuk Codex dan agen kompatibel OpenAI
+scripts/               validator paket
+evaluasi/              uji kualitas buta per versi
+contoh/                teks sebelum dan sesudah untuk tes
 tests/                 tes unit pemeriksa
+AGENTS.md              panduan untuk agen yang mengubah repo ini
 ```
 
 ## Berkontribusi
@@ -182,10 +209,11 @@ Kalau Anda menambah atau mengubah pola:
 1. Tambahkan penjelasannya di `SKILL.md` dan barisnya di tabel README.
 2. Kalau pola itu bisa dikenali dari kata, tambahkan regex-nya di `periksa.py` dan satu kasus di `tests/test_periksa.py`.
 3. Pastikan frasa yang wajar tidak ikut tertandai. Tambahkan contohnya di `TestTidakSalahTandai`.
-4. Jalankan tes:
+4. Jalankan tes dan validator paket:
 
    ```bash
    python3 -m unittest discover -s tests -v
+   python3 scripts/validate-package.py
    ```
 
 5. Kirim pull request:

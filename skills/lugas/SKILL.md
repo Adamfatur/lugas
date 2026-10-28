@@ -10,7 +10,7 @@ description: |
   "periksa pola AI", atau "kedengarannya kayak ChatGPT".
 license: MIT
 metadata:
-  version: "0.1.1"
+  version: "0.2.0"
 ---
 
 # Lugas: hilangkan pola tulisan AI dari Bahasa Indonesia
@@ -19,7 +19,7 @@ Tulis ulang teks supaya terdengar seperti penulisnya, bukan seperti chatbot. Per
 
 ## Aturan tetap
 
-1. **Isi tidak berubah.** Fakta, angka, tanggal, nama, kutipan langsung, tautan, kode, dan istilah teknis tetap persis sama. Kalau sebuah kalimat hanya hiasan, hapus. Jangan ganti dengan klaim baru.
+1. **Isi tidak berubah.** Fakta, angka, tanggal, nama, kutipan langsung, tautan, kode, dan istilah teknis tetap persis sama. Kalimat yang jelas hanya hiasan boleh dihapus, tapi jangan ganti dengan klaim baru. Kalimat yang bisa jadi fakta ("Stok terbatas", "biaya pendaftarannya terjangkau") dibiarkan; kalau perlu bukti, sebutkan di catatan.
 2. **Jangan menambah.** Tidak ada contoh, data, atau pendapat baru. Kalau teks butuh fakta yang tidak ada, biarkan saja, atau sebutkan di catatan.
 3. **Pertahankan register.** Tentukan dulu gayanya, lalu ikuti sampai akhir:
    - **Formal:** saya, Anda, kalimat baku (surat resmi, makalah, rilis pers).
@@ -27,8 +27,10 @@ Tulis ulang teks supaya terdengar seperti penulisnya, bukan seperti chatbot. Per
    - **Santai:** aku/kamu, partikel "sih", "kok", "ya", "deh" (media sosial, chat, catatan pribadi).
    - **Gaul:** gue/lo, campur bahasa Inggris (konten anak muda, Twitter/X).
    Kalau penulis mencampur bahasa Inggris dengan sengaja, biarkan. Itu gaya, bukan pola AI.
-4. **Potong lebih dulu, baru ubah.** Sebagian besar pola AI hilang dengan dihapus. Teks hasil hampir selalu lebih pendek.
+4. **Potong lebih dulu, baru ubah.** Sebagian besar pola AI hilang dengan dihapus, jadi teks hasil biasanya lebih pendek. Teks yang sudah bersih boleh dikembalikan dengan sedikit perubahan atau tanpa perubahan; jangan menyunting hanya supaya terlihat bekerja.
 5. **Bagian yang tidak disentuh:** blok kode, kutipan langsung, nama produk, judul karya, dan teks di dalam tanda kutip yang dikutip dari orang lain.
+6. **Ikuti kebiasaan genre.** Emoji penanda (📍 alamat, 🕒 jam buka, 🧵 thread, ✅ daftar fitur di marketplace), tagar, judul bagian rilis pers, kop dan salam surat resmi adalah bentuk tulisan itu, bukan pola AI. Hapus hanya yang berlebihan untuk genrenya.
+7. **Jaga kalimat yang membawa makna.** Pembatasan seperti "Bukan berarti nggak boleh, tapi..." mengubah isi saran, jadi tetap. Kalau pengguna meminta gaya tertentu (puitis, persuasif), ciri gaya itu boleh tetap selama tidak berulang.
 
 ## Cara kerja
 
@@ -37,7 +39,7 @@ Tulis ulang teks supaya terdengar seperti penulisnya, bukan seperti chatbot. Per
    ```bash
    python3 -I <folder skill ini>/scripts/periksa.py <berkas>
    ```
-   Untuk teks yang ditempel, simpan dulu ke berkas sementara. Pemeriksa hanya menemukan pola yang bisa dikenali dari kata. Pola 6, 7, 9, 12, 14, 15, dan 28 tetap harus dinilai sendiri. Temuan pemeriksa juga perlu dinilai: label tebal di daftar definisi, atau kata ganti yang sengaja disebut sebagai contoh, boleh tetap.
+   Untuk teks yang ditempel, simpan dulu ke berkas sementara. Pemeriksa hanya mengenal frasa yang ada di daftarnya, dan pola 6, 7, 9, 12, 14, 15, dan 28 tidak diperiksa sama sekali. Nol temuan tidak berarti teks sudah bersih, jadi tetap baca ulang dengan katalog. Temuan pemeriksa juga perlu dinilai: label tebal di daftar definisi, atau kata ganti yang sengaja disebut sebagai contoh, boleh tetap.
 3. **Tulis ulang** dengan memakai katalog di bawah.
 4. **Periksa ulang.** Tanyakan: "Kalimat mana yang masih terdengar seperti AI?" Perbaiki. Jalankan pemeriksa lagi pada hasilnya kalau tadi dipakai.
 5. **Serahkan hasilnya.** Lihat bagian Keluaran.
@@ -50,7 +52,9 @@ Tulis ulang teks supaya terdengar seperti penulisnya, bukan seperti chatbot. Per
 
 ## Keluaran
 
-Kembalikan teks hasil saja, tanpa pengantar seperti "Berikut hasilnya". Sesudahnya, tambahkan paling banyak tiga baris catatan hanya kalau ada yang perlu diketahui pengguna, misalnya klaim tanpa sumber yang Anda biarkan, atau bagian yang maknanya ambigu.
+Kembalikan teks hasil saja, tanpa pengantar seperti "Berikut hasilnya". Sesudahnya, tambahkan paling banyak tiga baris catatan hanya kalau ada yang perlu diketahui pengguna, misalnya klaim tanpa sumber yang Anda biarkan, atau bagian yang maknanya ambigu. Untuk beberapa berkas sekaligus, batas tiga baris itu berlaku per berkas.
+
+Kalau teks masih terbungkus jawaban chatbot (pengantar, tawaran bantuan, saran untuk pengguna), keluarkan teksnya saja. Saran yang berguna bagi pengguna, misalnya "isi alamat dan jam buka", dipindah ke catatan, jangan dibuang. Label yang membedakan beberapa pilihan teks ("Opsi 1", "Opsi 2") tetap ada.
 
 ---
 
@@ -97,7 +101,7 @@ Ubah jadi pernyataan: *"Ini penting karena..."*, atau langsung ke alasannya.
 Hapus bantahannya, sisakan klaimnya.
 
 **13. Penutup wajib.** "Semoga bermanfaat!", "Kesimpulannya,", "Pada akhirnya,", "Jadi, tunggu apa lagi?", "Mari kita bersama-sama...", "Yuk, mulai sekarang!".
-Akhiri di kalimat terakhir yang berisi informasi. Ajakan bertindak boleh tetap ada kalau memang tujuan teksnya, tapi tulis spesifik: *"Daftar sebelum 30 November di tautan ini."*
+Akhiri di kalimat terakhir yang berisi informasi. Ajakan bertindak boleh tetap ada kalau memang tujuan teksnya, tapi tulis spesifik: *"Daftar sebelum 30 November di tautan ini."* Penutup yang khas genrenya, seperti "Save dan RT kalau berguna" di thread atau salam penutup surat resmi, tetap. "Mari kita bahas" di akhir pembuka artikel adalah jembatan ke isi berikutnya; ganti dengan kalimat biasa atau hapus.
 
 **14. Ritme seragam.** Semua kalimat sepanjang 15–25 kata, semua paragraf tiga kalimat, tiap paragraf dibuka dengan kalimat topik dan ditutup dengan ringkasan.
 Variasikan. Gabungkan kalimat pendek yang terpotong-potong, pecah kalimat yang terlalu panjang, biarkan sebagian paragraf hanya satu kalimat.
@@ -157,7 +161,7 @@ Ganti dengan koma, titik, titik dua, atau kurung.
 Hapus label yang hanya mengulang isi poin. Teks pendek tidak butuh subjudul.
 
 **31. Emoji dan tanda seru.** 🚀✨💡 di judul dan poin, tanda seru di akhir hampir tiap kalimat.
-Hapus, kecuali penulisnya memang memakai emoji dengan gaya yang sama di bagian yang bukan buatan AI. Satu tanda seru per tulisan sudah banyak.
+Hapus emoji yang hanya hiasan. Emoji penanda yang lazim di genrenya tetap (lihat aturan tetap 6). Di tulisan formal dan semiformal, satu tanda seru per tulisan sudah banyak; di media sosial, ikuti kebiasaan penulisnya.
 
 ---
 

@@ -55,7 +55,8 @@ POLA = [
      "Ubah jadi pernyataan."),
     (13, "penutup wajib",
      r"\bsemoga (bermanfaat|membantu|artikel ini)\b|\bkesimpulannya,|\bpada akhirnya,"
-     r"|\bjadi,? tunggu apa lagi\b|\bmari kita (bersama|mulai)\b|\byuk,? (mulai|simak)\b",
+     r"|\bjadi,? tunggu apa lagi\b|\bmari kita (bersama|mulai|bahas|simak|lihat)\b|\byuk,? (mulai|simak)\b"
+     r"|\bjangan sampai (kelewatan|ketinggalan)\b",
      "Akhiri di kalimat terakhir yang berisi informasi."),
     (16, "kata pengisi",
      r"\b(tentunya|pastinya|sejatinya|pada dasarnya|secara keseluruhan|dalam hal ini)\b"
@@ -87,7 +88,8 @@ POLA = [
      r"\b(insight|leverage|impact|highlight|concern|engagement|mindset)\b",
      "Pakai padanan Indonesia, kecuali registernya memang campur."),
     (25, "sapaan chatbot",
-     r"\btentu[!,] berikut\b|\bberikut (adalah|ini) (beberapa|penjelasan|ringkasan|hasil)\b"
+     r"\btentu[!,] berikut\b|\bberikut (adalah |ini )?(beberapa|penjelasan|ringkasan|hasil|pilihan|contoh)\b"
+     r"|\bjika perlu, saya (juga )?bisa\b"
      r"|\bjangan ragu untuk\b|\bsebagai (sebuah )?(model bahasa|ai)\b"
      r"|\bjika (ada|anda memiliki) pertanyaan (lain|lebih lanjut)\b",
      "Hapus."),
@@ -99,7 +101,7 @@ POLA = [
      "Hapus label yang hanya mengulang isi poin."),
     (31, "emoji",
      "[\U0001F300-\U0001FAFF☀-➿⭐✨]",
-     "Hapus emoji dekoratif."),
+     "Hapus kalau hanya hiasan; emoji penanda genre (📍, 🧵, ✅) boleh tetap."),
 ]
 
 POLA_TERKOMPILASI = [(n, nama, re.compile(rx, re.IGNORECASE | re.MULTILINE), saran)

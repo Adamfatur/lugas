@@ -1,0 +1,12 @@
+{
+  "name": "lugas",
+  "description": "Menulis ulang teks Bahasa Indonesia yang terdengar seperti buatan AI supaya terdengar seperti penulisnya, tanpa mengubah isinya.",
+  "version": "0.2.0",
+  "author": {
+    "name": "Adamfatur"
+  },
+  "homepage": "https://github.com/Adamfatur/lugas",
+  "repository": "https://github.com/Adamfatur/lugas",
+  "license": "MIT",
+  "keywords": ["bahasa-indonesia", "menulis", "penyuntingan", "humanize", "gaya-tulisan"]
+}

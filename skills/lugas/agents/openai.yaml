@@ -1,0 +1,4 @@
+interface:
+  display_name: "Lugas"
+  short_description: "Hilangkan pola tulisan AI dari teks Bahasa Indonesia"
+  default_prompt: "Pakai $lugas untuk menulis ulang teks ini dengan gaya saya tanpa mengubah faktanya."

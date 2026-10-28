@@ -43,6 +43,12 @@ class TestPolaTerdeteksi(unittest.TestCase):
             with self.subTest(pola=pola):
                 self.assertIn(pola, nomor_pola(teks))
 
+    def test_bungkus_chatbot_dan_penutup(self):
+        self.assertIn(25, nomor_pola("Berikut ringkasan hasil rapatnya:"))
+        self.assertIn(25, nomor_pola("Jika perlu, saya juga bisa membuatkan versi poin."))
+        self.assertIn(13, nomor_pola("Mari kita bahas satu per satu."))
+        self.assertIn(13, nomor_pola("Jangan sampai kelewatan, ya!"))
+
     def test_kata_ganti_tercampur(self):
         self.assertIn(27, nomor_pola("Saya suka kopi. Tapi aku lebih suka teh."))
 
@@ -56,7 +62,8 @@ class TestTidakSalahTandai(unittest.TestCase):
             "Saya tinggal di Bandung, di mana-mana macet. "
             "Toko itu menjual pakaian dan sepatu. "
             "Mereka mulai bekerja pukul delapan. "
-            "Di mana kamu menyimpan kuncinya?"
+            "Di mana kamu menyimpan kuncinya? "
+            "Berikut syarat pendaftaran."
         )
         self.assertEqual(set(), nomor_pola(teks) - {27})
 
