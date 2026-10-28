@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "lugas",
+  "owner": {
+    "name": "Adamfatur",
+    "url": "https://github.com/Adamfatur"
+  },
+  "description": "Pasang Lugas sebagai plugin Claude Code.",
+  "plugins": [
+    {
+      "name": "lugas",
+      "source": "./",
+      "description": "Menulis ulang teks Bahasa Indonesia yang terdengar seperti buatan AI supaya terdengar seperti penulisnya, tanpa mengubah isinya.",
+      "license": "MIT",
+      "keywords": ["bahasa-indonesia", "menulis", "penyuntingan", "humanize", "gaya-tulisan"]
+    }
+  ]
+}
