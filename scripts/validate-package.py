@@ -53,7 +53,9 @@ if len(semua_versi) != 1:
     sys.exit(f"Pakai satu versi di semua berkas: {sorted(semua_versi)}")
 
 # Satu berkas skill saja
-berkas_skill = {p.relative_to(AKAR) for p in AKAR.rglob("SKILL.md") if ".git" not in p.parts}
+# .claude/ berisi worktree sesi agen, yang punya salinan repo sendiri.
+berkas_skill = {p.relative_to(AKAR) for p in AKAR.rglob("SKILL.md")
+                if not {".git", ".claude"} & set(p.relative_to(AKAR).parts)}
 if berkas_skill != {SKILL_PATH.relative_to(AKAR)}:
     sys.exit(f"Simpan satu SKILL.md di skills/lugas: {sorted(map(str, berkas_skill))}")
 
